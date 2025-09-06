@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.globals": [
+        "awesome",
+        "client",
+        "set_wallpaper",
+        "screen",
+        "create_tasklist"
+    ]
+}
