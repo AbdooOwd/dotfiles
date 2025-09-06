@@ -46,7 +46,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({ 
         position = "top", 
         screen = s,
-        height = 22,
+        height = 25,
     })
 
     -- Add widgets to the wibox
@@ -64,6 +64,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            separator,
             wifi_widget,
             separator,
             volume_widget,
