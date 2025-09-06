@@ -19,6 +19,13 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock()
 
+-- TODO: move this elsewhere
+local separator = wibox.widget {
+    markup = '<span font="' .. beautiful.get_font_height(beautiful.font) .. '"> | </span>',
+    align  = 'center',
+    valign = 'top',
+    widget = wibox.widget.textbox
+}
 
 awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
@@ -58,10 +65,15 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wifi_widget,
+            separator,
             volume_widget,
+            separator,
             mykeyboardlayout,
+            separator,
             wibox.widget.systray(),
+            separator,
             mytextclock,
+            separator,
             s.mylayoutbox,
         },
     }
