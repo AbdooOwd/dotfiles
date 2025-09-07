@@ -36,6 +36,11 @@ local selected_theme = themes[1]
 beautiful.init(string.format("~/.config/awesome/themes/%s/theme.lua", selected_theme))
 
 
+-- imports & all start here (MUST BE AFTER 'beautiful.init' !!!)
+require 'ui'
+local launcher_module = require("ui.bar.launcher_module")
+
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.floating,
@@ -60,12 +65,9 @@ awful.layout.layouts = {
 -- {{{ Menu
 
 
-
 -- Menubar configuration
 menubar.utils.terminal = config.terminal -- Set the terminal for applications that require it
 
-require 'ui'
-local launcher_module = require("ui.bar.launcher_module")
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -417,3 +419,13 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+
+
+
+-- EXPERIMENTATION & DEBUG???
+
+--[[naughty.notify({
+    title = "Debug Output",
+    text = "Icon Spacing: " .. tostring(beautiful.systray_icon_spacing)
+})]]

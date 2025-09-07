@@ -3,6 +3,7 @@ local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local utils = require("ui.utils")
 
 -- components
 local launcher_module = require("ui.bar.launcher_module")
@@ -15,6 +16,8 @@ local wifi_widget = require("ui.bar.widgets.wifi")
 -- functions
 local the_tasklist = require("ui.bar.tasklist")
 local the_taglist = require("ui.bar.taglist")
+local barcontainer = utils.barcontainer
+local margin = utils.margin
 
 
 -- Keyboard map indicator and switcher
@@ -26,46 +29,39 @@ local mytextclock = wibox.widget.textclock()
 -- TODO: move this elsewhere
 local separator = wibox.widget {
     markup = '<span font="' .. beautiful.get_font_height(beautiful.font) .. '"> | </span>',
+    valign = "center",
     widget = wibox.widget.textbox
 }
 
--- calculate systray programs count
--- > remove a separator if 0
-local systray = wibox.widget.systray()
 
+local systray = wibox.widget.systray()
+systray.set_base_size(18)
+beautiful.systray_icon_spacing = 2
 
 -- widget sections
 local left_widgets = function(screen)
     return {
-        layout = wibox.layout.fixed.horizontal,
         launcher,
         the_taglist(screen),
-        screen.mypromptbox,
+        layout = wibox.layout.fixed.horizontal
     }
 end
 
 local middle_widgets = function(screen)
     return {
-        layout = wibox.layout.flex.horizontal,
         the_tasklist(screen),
+        layout = wibox.layout.flex.horizontal
     }
 end
 
 local right_widgets = function(screen)
     return {
-        layout = wibox.layout.fixed.horizontal,
-        separator,
-        wifi_widget,
-        separator,
-        volume_widget,
-        separator,
-        mykeyboardlayout,
-            separator,
-            wibox.widget.systray(),
-        separator,
-        mytextclock,
-        separator,
-        screen.mylayoutbox,
+        barcontainer(wifi_widget),
+        barcontainer(volume_widget),
+        barcontainer(mykeyboardlayout),
+        barcontainer(systray),
+        barcontainer(mytextclock),
+        layout = wibox.layout.fixed.horizontal
     }
 end
 
@@ -86,8 +82,8 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ 
-        position = "top", 
+    s.mywibox = awful.wibar({
+        position = "top",
         screen = s,
         height = 25,
     })
@@ -95,8 +91,17 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
-        left_widgets(s),
+        { -- Left Widgets
+            layout = wibox.layout.fixed.horizontal,
+            left_widgets(s),
+            s.mypromptbox,
+        },
         middle_widgets(s),
-        right_widgets(s),
+        { -- Right Widgets
+            layout = wibox.layout.fixed.horizontal,
+            separator,
+            right_widgets(s),
+            s.mylayoutbox,
+        },
     }
 end)
