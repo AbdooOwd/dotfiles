@@ -29,6 +29,47 @@ local separator = wibox.widget {
     widget = wibox.widget.textbox
 }
 
+-- calculate systray programs count
+-- > remove a separator if 0
+local systray = wibox.widget.systray()
+
+
+-- widget sections
+local left_widgets = function(screen)
+    return {
+        layout = wibox.layout.fixed.horizontal,
+        launcher,
+        the_taglist(screen),
+        screen.mypromptbox,
+    }
+end
+
+local middle_widgets = function(screen)
+    return {
+        layout = wibox.layout.flex.horizontal,
+        the_tasklist(screen),
+    }
+end
+
+local right_widgets = function(screen)
+    return {
+        layout = wibox.layout.fixed.horizontal,
+        separator,
+        wifi_widget,
+        separator,
+        volume_widget,
+        separator,
+        mykeyboardlayout,
+            separator,
+            wibox.widget.systray(),
+        separator,
+        mytextclock,
+        separator,
+        screen.mylayoutbox,
+    }
+end
+
+
 awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     awful.tag({ "Main", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -54,30 +95,8 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            launcher,
-            the_taglist(s),
-            s.mypromptbox,
-        },
-        { -- Middle widgets
-            layout = wibox.layout.flex.horizontal,
-            the_tasklist(s),
-        },
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            separator,
-            wifi_widget,
-            separator,
-            volume_widget,
-            separator,
-            mykeyboardlayout,
-            separator,
-            wibox.widget.systray(),
-            separator,
-            mytextclock,
-            separator,
-            s.mylayoutbox,
-        },
+        left_widgets(s),
+        middle_widgets(s),
+        right_widgets(s),
     }
 end)
