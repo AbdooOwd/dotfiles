@@ -4,6 +4,9 @@ local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 
+-- components
+local launcher = require("ui.bar.awesome_launcher")
+
 -- widgets
 local volume_widget = require("ui.bar.widgets.volume")
 local wifi_widget = require("ui.bar.widgets.wifi")
@@ -22,8 +25,6 @@ local mytextclock = wibox.widget.textclock()
 -- TODO: move this elsewhere
 local separator = wibox.widget {
     markup = '<span font="' .. beautiful.get_font_height(beautiful.font) .. '"> | </span>',
-    align  = 'center',
-    valign = 'top',
     widget = wibox.widget.textbox
 }
 
@@ -54,7 +55,7 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            launcher,
             the_taglist(s),
             s.mypromptbox,
         },
