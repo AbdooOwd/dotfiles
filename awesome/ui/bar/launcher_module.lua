@@ -10,11 +10,11 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 -- Create a launcher widget and a main menu
 local myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", config.terminal .. " -e man awesome" },
-   { "edit config", config.editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
+    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+    { "manual", config.terminal .. " -e man awesome" },
+    { "edit config", config.editor_cmd .. " " .. awesome.conffile },
+    { "restart", awesome.restart },
+    { "quit", function() awesome.quit() end },
 }
 
 local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
@@ -23,12 +23,8 @@ local menu_discord = { "open discord", "flatpak run com.discordapp.Discord" }
 local menu_utils = {
     "utilities",
     {
-        { "system",
-            {
-                { "Network", "cinnamon-settings network" },
-                { "Bluetooth", "cinnamon-settings bluetooth" }
-            }
-        }
+        { "Network", "cinnamon-settings network" },
+        { "Bluetooth", "cinnamon-settings bluetooth" }
     }
 }
 
@@ -42,15 +38,17 @@ if has_fdo then
 else
     mymainmenu = awful.menu({
         items = {
-                  menu_awesome,
-                  { "Debian", debian.menu.Debian_menu.Debian },
-                  menu_terminal,
+                menu_awesome,
+                { "Debian", debian.menu.Debian_menu.Debian },
+                menu_terminal,
                 }
     })
 end
 
-
-local mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+local el_launcher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
-return mylauncher
+return {
+    launcher = el_launcher,
+    menu = mymainmenu
+}

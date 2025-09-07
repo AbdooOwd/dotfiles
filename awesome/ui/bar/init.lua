@@ -5,7 +5,8 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 
 -- components
-local launcher = require("ui.bar.awesome_launcher")
+local launcher_module = require("ui.bar.launcher_module")
+local launcher = launcher_module.launcher
 
 -- widgets
 local volume_widget = require("ui.bar.widgets.volume")

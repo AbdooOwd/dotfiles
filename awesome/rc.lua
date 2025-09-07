@@ -17,6 +17,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+
 -- global stuff
 local config = require("config")
 
@@ -64,10 +65,11 @@ awful.layout.layouts = {
 menubar.utils.terminal = config.terminal -- Set the terminal for applications that require it
 
 require 'ui'
+local launcher_module = require("ui.bar.launcher_module")
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 3, function () launcher_module.menu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -96,7 +98,7 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ config.modkey,           }, "w", function () mymainmenu:show() end,
+    awful.key({ config.modkey,           }, "w", function () launcher_module.menu:show() end,
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation

@@ -6,3 +6,6 @@
         but it's used in `rc.lua`
 -   Put keybinds in separate file
 -   :sparkles: tidy the codebase :sparkles:
+-   optimize: remove useless imports, requires, and shorten paths
+    -   example, instead of importing all of `launcher_module`,
+        we import only what we need from it
