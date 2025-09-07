@@ -20,7 +20,7 @@ local ssid_widget = wibox.widget {
         ssid_text,
         widget = wibox.container.background
     },
-    spacing = dpi(8),
+    spacing = dpi(beautiful.widget_icon_spacing),
     layout = wibox.layout.fixed.horizontal,
 }
 

@@ -9,3 +9,4 @@
 -   optimize: remove useless imports, requires, and shorten paths
     -   example, instead of importing all of `launcher_module`,
         we import only what we need from it
+-   [!] Make everything the most dependable on `theme.lua` as possible

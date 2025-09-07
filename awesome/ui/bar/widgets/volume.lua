@@ -20,7 +20,7 @@ local volume_widget = wibox.widget {
         volume_percentage,
         widget = wibox.container.background
     },
-    spacing = dpi(8),
+    spacing = dpi(beautiful.widget_icon_spacing),
     layout = wibox.layout.fixed.horizontal
 }
 local n = require("naughty").notify

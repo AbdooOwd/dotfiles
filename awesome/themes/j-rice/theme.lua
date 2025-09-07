@@ -14,6 +14,7 @@ local theme = {}
 
 theme.font          = "EnvyCodeR Nerd Font Regular 10"
 theme.widget_icon_font = "EnvyCodeR Nerd Font Mono Regular 20"
+theme.widget_icon_spacing = 8 -- dpi spacing between widget value and its icon
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"
@@ -73,12 +74,17 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path.."default/submenu.png"
 theme.menu_height = dpi(15)
-theme.menu_width  = dpi(100)
+theme.menu_width  = dpi(200)
 
 -- You can add as many variables as
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
+
+-- margins
+theme.margins = {}
+theme.margins.vertical = 4
+theme.margins.horizontal = 8
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"

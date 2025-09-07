@@ -4,6 +4,7 @@ local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local utils = require("ui.utils")
+local dpi = beautiful.xresources.apply_dpi
 
 -- components
 local launcher_module = require("ui.bar.launcher_module")
@@ -101,7 +102,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             separator,
             right_widgets(s),
-            s.mylayoutbox,
+            wibox.container.margin(s.mylayoutbox, dpi(6), dpi(6), dpi(6), dpi(6)),
         },
     }
 end)
