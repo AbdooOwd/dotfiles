@@ -187,7 +187,7 @@ local globalkeys = gears.table.join(
     
     -- requires 'xscreensaver' + its extra data, and 'fortune' installed
     awful.key( { config.modkey, "Control" }, "p", 
-    function() awful.spawn("/usr/libexec/xscreensaver/phosphor --program fortune") end,
+    function() awful.spawn("/usr/libexec/xscreensaver/phosphor --scale 3 --program fortune") end,
         { description = "xscreensaver's phosphor", group = "fun" })
 )
 
