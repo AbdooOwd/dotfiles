@@ -185,7 +185,9 @@ local globalkeys = gears.table.join(
     awful.key( { config.modkey }, "Tab", function() awful.spawn("rofi -show window") end,
         { description = "[rofi] displays active windows", group = "launcher" }),
     
-    awful.key( { config.modkey, "Control" }, "p", function() awful.spawn("/usr/libexec/xscreensaver/phosphor") end,
+    -- requires 'xscreensaver' + its extra data, and 'fortune' installed
+    awful.key( { config.modkey, "Control" }, "p", 
+    function() awful.spawn("/usr/libexec/xscreensaver/phosphor --program fortune") end,
         { description = "xscreensaver's phosphor", group = "fun" })
 )
 
