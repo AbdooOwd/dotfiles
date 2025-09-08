@@ -1,5 +1,5 @@
 ---------------------------
--- Default awesome theme --
+-- J-Rice awesome theme --
 ---------------------------
 
 local theme_assets = require("beautiful.theme_assets")
@@ -12,8 +12,8 @@ local this_theme_path = "~/.config/awesome/themes/j-rice/"
 
 local theme = {}
 
-theme.font          = "EnvyCodeR Nerd Font Regular 11"
-theme.widget_icon_font = "EnvyCodeR Nerd Font Mono Regular 20"
+theme.font          = "FantasqueSansM Nerd Font Regular 11"
+theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular 20"
 theme.widget_icon_spacing = 8 -- dpi spacing between widget value and its icon
 
 theme.bg_normal     = "#222222"
