@@ -36,8 +36,7 @@ local separator = wibox.widget {
 
 
 local systray = wibox.widget.systray()
-systray.set_base_size(18)
-beautiful.systray_icon_spacing = 2
+systray.set_base_size(20)
 
 -- widget sections
 local left_widgets = function(screen)

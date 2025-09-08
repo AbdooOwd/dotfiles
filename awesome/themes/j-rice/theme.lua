@@ -12,7 +12,7 @@ local this_theme_path = "~/.config/awesome/themes/j-rice/"
 
 local theme = {}
 
-theme.font          = "EnvyCodeR Nerd Font Regular 10"
+theme.font          = "EnvyCodeR Nerd Font Regular 11"
 theme.widget_icon_font = "EnvyCodeR Nerd Font Mono Regular 20"
 theme.widget_icon_spacing = 8 -- dpi spacing between widget value and its icon
 
@@ -33,13 +33,7 @@ theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
 
---[[ 
-    because this is something functional and mostly
-    required for my setup, the systray spacing will
-    be directly in the codebase.
-    hardcoded so it remains, whatever the theme is
-]]
---theme.systray_icon_spacing = 3
+theme.systray_icon_spacing = 2
 
 -- There are other variable sets
 -- overriding the default one when

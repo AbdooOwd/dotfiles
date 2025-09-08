@@ -2,7 +2,7 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
 
-function set_wallpaper(s)
+local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
         local wallpaper = beautiful.wallpaper
