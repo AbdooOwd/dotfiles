@@ -177,18 +177,22 @@ local globalkeys = gears.table.join(
     -- Menubar
     awful.key({ config.modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
-    
+
     -- Abdoo's Custom
     awful.key({ config.modkey }, "b", function() awful.spawn("rofi -show drun") end, 
         { description = "runs rofi", group="launcher"}),
-    
+
     awful.key( { config.modkey }, "Tab", function() awful.spawn("rofi -show window") end,
         { description = "[rofi] displays active windows", group = "launcher" }),
-    
+
     -- requires 'xscreensaver' + its extra data, and 'fortune' installed
     awful.key( { config.modkey, "Control" }, "p", 
     function() awful.spawn("/usr/libexec/xscreensaver/phosphor --scale 3 --program fortune") end,
-        { description = "xscreensaver's phosphor", group = "fun" })
+        { description = "xscreensaver's phosphor", group = "fun" }),
+
+    -- volume control
+    awful.key( { config.modkey }, "Tab", function() awful.spawn("rofi -show window") end,
+        { description = "volume up by 5%", group = "misc" })
 )
 
 clientkeys = gears.table.join(
@@ -198,8 +202,10 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ config.modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
-              {description = "close", group = "client"}),
+    awful.key({ config.modkey, "Shift"   }, "c",
+        function (c)
+            c:kill()
+        end, {description = "close", group = "client"}),
     awful.key({ config.modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     awful.key({ config.modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,

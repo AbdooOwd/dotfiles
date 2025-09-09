@@ -1,4 +1,6 @@
 local awful = require("awful")
+local beautiful = require("beautiful")
+local wibox = require("wibox")
 local gears = require("gears")
 local config = require("config")
 
@@ -24,7 +26,21 @@ local taglist = function(screen)
     return awful.widget.taglist {
         screen  = screen,
         filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
+        buttons = taglist_buttons,
+        widget_template = {
+            {
+                {
+                    id = 'text_role',
+                    font = beautiful.font_default_name .. " Bold " .. tostring(beautiful.taglist_font_size),
+                    widget = wibox.widget.textbox,
+                },
+                left = beautiful.margins.tagbutton_horizontal,
+                right = beautiful.margins.tagbutton_horizontal,
+                widget = wibox.container.margin,
+            },
+            id = 'background_role',
+            widget = wibox.container.background,
+        },
     }
 end
 

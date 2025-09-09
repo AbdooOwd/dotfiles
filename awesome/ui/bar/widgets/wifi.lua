@@ -2,7 +2,6 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local watch = require("awful.widget.watch")
-local dpi = beautiful.xresources.apply_dpi
 
 local ssid_command = "iwgetid -r"
 
@@ -10,17 +9,21 @@ local ssid_text = wibox.widget.textbox()
 ssid_text.text = "No WiFi"
 local wifi_icon = wibox.widget.textbox()
 wifi_icon.font = beautiful.widget_icon_font
+wifi_icon.text = "󰖩"
+
 
 local ssid_widget = wibox.widget {
     {
         wifi_icon,
-        widget = wibox.container.background
+        left = beautiful.margins.widget_icon_left,
+        bottom = beautiful.margins.widgets.wifi.icon_bottom,
+        widget = wibox.container.margin,
     },
     {
         ssid_text,
         widget = wibox.container.background
     },
-    spacing = dpi(beautiful.widget_icon_spacing),
+    spacing = beautiful.widget_icon_spacing,
     layout = wibox.layout.fixed.horizontal,
 }
 
@@ -30,9 +33,11 @@ local function update_ssid_text()
             local ssid = stdout:gsub("%s+$", "") -- Remove trailing whitespace/newline
             if ssid == "" then
                 ssid = "No WiFi"
-                wifi_icon.text = ""
+                -- wifi_icon.text = ""
+                wifi_icon.visible = false
             else
-                wifi_icon.text = "󰖩"
+                -- wifi_icon.text = "󰖩"
+                wifi_icon.visible = true
             end
             ssid_text.text = ssid
         end)

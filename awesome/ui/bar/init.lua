@@ -3,7 +3,7 @@ local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local utils = require("ui.utils")
+local utils = require("utils")
 local dpi = beautiful.xresources.apply_dpi
 
 -- components
@@ -13,12 +13,14 @@ local launcher = launcher_module.launcher
 -- widgets
 local volume_widget = require("ui.bar.widgets.volume")
 local wifi_widget = require("ui.bar.widgets.wifi")
+local systray_module = require("ui.bar.widgets.systray_module")
 
 -- functions
 local the_tasklist = require("ui.bar.tasklist")
 local the_taglist = require("ui.bar.taglist")
 local barcontainer = utils.barcontainer
 local margin = utils.margin
+local len = utils.len
 
 
 -- Keyboard map indicator and switcher
@@ -34,9 +36,6 @@ local separator = wibox.widget {
     widget = wibox.widget.textbox
 }
 
-
-local systray = wibox.widget.systray()
-systray.set_base_size(20)
 
 -- widget sections
 local left_widgets = function(screen)
@@ -59,7 +58,7 @@ local right_widgets = function(screen)
         barcontainer(wifi_widget),
         barcontainer(volume_widget),
         barcontainer(mykeyboardlayout),
-        barcontainer(systray),
+        barcontainer(screen.systray),
         barcontainer(mytextclock),
         layout = wibox.layout.fixed.horizontal
     }
@@ -81,6 +80,9 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
+    -- sets the screen's systray
+    systray_module.set_screen_systray(s)
+
     -- Create the wibox
     s.mywibox = awful.wibar({
         position = "top",
@@ -98,10 +100,14 @@ awful.screen.connect_for_each_screen(function(s)
         },
         middle_widgets(s),
         { -- Right Widgets
-            layout = wibox.layout.fixed.horizontal,
-            separator,
-            right_widgets(s),
-            wibox.container.margin(s.mylayoutbox, dpi(6), dpi(6), dpi(6), dpi(6)),
+            {
+                layout = wibox.layout.fixed.horizontal,
+                --separator,
+                right_widgets(s),
+                wibox.container.margin(s.mylayoutbox, dpi(6), dpi(6), dpi(6), dpi(6)),
+            },
+            valign = "center",
+            widget = wibox.container.place
         },
     }
 end)

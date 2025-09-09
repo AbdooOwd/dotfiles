@@ -12,9 +12,11 @@ local this_theme_path = "~/.config/awesome/themes/j-rice/"
 
 local theme = {}
 
-theme.font          = "FantasqueSansM Nerd Font Regular 11"
+theme.font_default_name = "FantasqueSansM Nerd Font"
+theme.font_default_size = dpi(14)
+theme.font = theme.font_default_name .. " Mono " .. tostring(theme.font_default_size)
 theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular 20"
-theme.widget_icon_spacing = 8 -- dpi spacing between widget value and its icon
+theme.widget_icon_spacing = dpi(6) -- dpi spacing between widget value and its icon
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"
@@ -32,8 +34,6 @@ theme.border_width  = dpi(1)
 theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
-
-theme.systray_icon_spacing = 2
 
 -- There are other variable sets
 -- overriding the default one when
@@ -67,7 +67,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path.."default/submenu.png"
-theme.menu_height = dpi(15)
+theme.menu_height = dpi(20)
 theme.menu_width  = dpi(200)
 
 -- You can add as many variables as
@@ -75,10 +75,32 @@ theme.menu_width  = dpi(200)
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
--- margins
+-- systray stuff i guess
+theme.systray_icon_spacing = dpi(2)
+theme.systray_base_size = dpi(20)
+
+-- taglist stuff
+theme.taglist_font_size = dpi(15)
+theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.taglist_font_size)
+
+-- {{ margins
 theme.margins = {}
-theme.margins.vertical = 4
-theme.margins.horizontal = 8
+theme.margins.vertical = dpi(4)
+theme.margins.horizontal = dpi(4)
+theme.margins.widget_icon_left = dpi(6)
+
+theme.margins.tagbutton_horizontal = dpi(8)
+
+-- widget specific margins
+theme.margins.widgets = {}
+
+theme.margins.widgets.wifi = {}
+theme.margins.widgets.wifi.icon_bottom = dpi(1.9)
+
+theme.margins.widgets.volume = {}
+theme.margins.widgets.volume.icon_bottom = dpi(2)
+-- }}
+
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"

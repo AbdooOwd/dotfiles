@@ -2,7 +2,6 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
-local dpi = beautiful.xresources.apply_dpi
 
 local volume_extraction_command = "pactl get-sink-volume @DEFAULT_SINK@; pactl get-sink-mute @DEFAULT_SINK@"
 
@@ -14,16 +13,18 @@ volume_icon.font = beautiful.widget_icon_font
 local volume_widget = wibox.widget {
     {
         volume_icon,
-        widget = wibox.container.background
+        left = beautiful.margins.widget_icon_left,
+        bottom = beautiful.margins.widgets.volume.icon_bottom,
+        widget = wibox.container.margin
     },
     {
         volume_percentage,
         widget = wibox.container.background
     },
-    spacing = dpi(beautiful.widget_icon_spacing),
+    spacing = beautiful.widget_icon_spacing,
     layout = wibox.layout.fixed.horizontal
 }
-local n = require("naughty").notify
+
 local function update_volume_widget()
     awful.spawn.easy_async_with_shell(volume_extraction_command,
         function(stdout)
