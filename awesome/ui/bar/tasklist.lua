@@ -30,18 +30,6 @@ local tasklist = function (screen)
         screen  = screen,
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
-        widget_template = {
-            {
-                {
-                    id     = 'icon_role',
-                    widget = wibox.widget.imagebox,
-                },
-                margins = 4,
-                widget  = wibox.container.margin,
-            },
-            id     = 'background_role',
-            widget = wibox.container.background,
-        },
     }
 end
 

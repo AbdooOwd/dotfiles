@@ -91,9 +91,12 @@ theme.taglist_font_size = dpi(15)
 theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.taglist_font_size)
 
 -- tasklist stuff
-theme.tasklist_disable_task_name = true
---theme.tasklist_shape = gears.shape.rounded_rect
---theme.tasklist_plain_task_name = true
+-- theme.tasklist_disable_task_name = true
+-- theme.tasklist_shape = gears.shape.rounded_rect
+-- theme.tasklist_plain_task_name = true
+
+-- wibar stuff
+theme.wibar_opacity = 0.7
 
 -- {{ margins
 theme.margins = {}
