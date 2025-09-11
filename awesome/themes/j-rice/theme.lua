@@ -2,6 +2,8 @@
 -- J-Rice awesome theme --
 ---------------------------
 
+local gears = require("gears")
+
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -14,12 +16,17 @@ local theme = {}
 
 theme.font_default_name = "FantasqueSansM Nerd Font"
 theme.font_default_size = dpi(14)
-theme.font = theme.font_default_name .. " Mono " .. tostring(theme.font_default_size)
-theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular 20"
+theme.font_default_weight = "Bold"
+
+theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular 21"
 theme.widget_icon_spacing = dpi(6) -- dpi spacing between widget value and its icon
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
+theme.font = string.format("%s %s %s", 
+    theme.font_default_name, theme.font_default_weight, theme.font_default_size)
+
+
+theme.bg_normal     = "#252630"
+theme.bg_focus      = "#37384D"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
 theme.bg_systray    = theme.bg_normal
@@ -82,6 +89,11 @@ theme.systray_base_size = dpi(20)
 -- taglist stuff
 theme.taglist_font_size = dpi(15)
 theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.taglist_font_size)
+
+-- tasklist stuff
+theme.tasklist_disable_task_name = true
+--theme.tasklist_shape = gears.shape.rounded_rect
+--theme.tasklist_plain_task_name = true
 
 -- {{ margins
 theme.margins = {}

@@ -1,4 +1,6 @@
 local awful = require("awful")
+local wibox = require("wibox")
+local beautiful = require("beautiful")
 local gears = require("gears")
 
 local tasklist_buttons = gears.table.join(
@@ -27,7 +29,19 @@ local tasklist = function (screen)
     return awful.widget.tasklist {
         screen  = screen,
         filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
+        buttons = tasklist_buttons,
+        widget_template = {
+            {
+                {
+                    id     = 'icon_role',
+                    widget = wibox.widget.imagebox,
+                },
+                margins = 4,
+                widget  = wibox.container.margin,
+            },
+            id     = 'background_role',
+            widget = wibox.container.background,
+        },
     }
 end
 
