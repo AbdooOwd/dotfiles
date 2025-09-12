@@ -9,18 +9,18 @@ local function make_popup(title, popup_widget, parent_widget)
             {
                 {
                     text = title,
-                    widget = wibox.widget.textbox
+                    widget = wibox.widget.textbox,
                 },
                 popup_widget,
-                layout = wibox.layout.fixed.vertical
+                layout = wibox.layout.fixed.vertical,
             },
             margins = 10,
-            widget = wibox.container.margin
+            widget = wibox.container.margin,
         },
         placement = {},
         ontop = true,
         visible = false,
-        parent = parent_widget
+        parent = parent_widget,
     }
 
     return popup
