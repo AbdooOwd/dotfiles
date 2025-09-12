@@ -25,3 +25,5 @@ local function make_popup(title, popup_widget, parent_widget)
 
     return popup
 end
+
+return make_popup
