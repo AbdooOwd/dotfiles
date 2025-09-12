@@ -1,7 +1,10 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local gears = require("gears")
 local watch = require("awful.widget.watch")
+
+local make_popup = require("ui.generic.popup")
 
 local ssid_command = "iwgetid -r"
 
@@ -27,6 +30,8 @@ local ssid_widget = wibox.widget {
     layout = wibox.layout.fixed.horizontal,
 }
 
+local wifi_popup = make_popup("WiFi Pop-up", wibox.widget.textbox("Yes"), ssid_widget)
+
 local function update_ssid_text()
     awful.spawn.easy_async_with_shell(ssid_command,
         function(stdout)
@@ -47,5 +52,20 @@ watch(ssid_command, 5, function()
     update_ssid_text()
     collectgarbage("collect")
 end)
+
+
+ssid_widget:buttons(
+    gears.table.join(
+        awful.button({}, 1, function()
+            awful.placement.next_to(wifi_popup,
+                {
+                    preferred_positions = { "bottom" },
+                    preferred_anchors = { "back" },
+                }
+            )
+            wifi_popup.visible = not wifi_popup.visible
+        end)
+    )
+)
 
 return ssid_widget
