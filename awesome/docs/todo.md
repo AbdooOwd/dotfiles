@@ -15,3 +15,9 @@
         we import only what we need from it
 -   [!] Make everything the most dependable on `theme.lua` as possible
 -   Make a place to check Notifications
+-   I am making "Generic Widgets", or "Re-usable Widgets" like "popup".
+    The thing is that the WiFi and Volume widgets are kinda... generic.
+    They both have an icon and their value. Sure, the logic behind them
+    is **really** different. But I think I could work out something
+    to have a generic widget to bypass this "duplication" and make
+    something efficiently re-usable.

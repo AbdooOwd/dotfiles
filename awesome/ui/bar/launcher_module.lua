@@ -7,7 +7,6 @@ local config = require("config")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
-
 -- Create a launcher widget and a main menu
 local myawesomemenu = {
     { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
