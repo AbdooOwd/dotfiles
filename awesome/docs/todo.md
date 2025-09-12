@@ -21,3 +21,8 @@
     is **really** different. But I think I could work out something
     to have a generic widget to bypass this "duplication" and make
     something efficiently re-usable.
+-   When making popups, I need to declare the widget as clickable 
+    in each widget. There surely is a way to make this more... efficient.
+-   Intead of checking for my widget values (Like Wifi & Volume) **constently**,
+    I think I should attach it to a signal. Like, for the WiFi, if the wifi switches.
+    If it's switched off, or changed, or idk.

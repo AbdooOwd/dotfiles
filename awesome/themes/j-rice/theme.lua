@@ -98,6 +98,10 @@ theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.tagli
 -- wibar stuff
 theme.wibar_opacity = 0.7
 
+-- slider
+theme.slider_forced_width = dpi(200)
+theme.slider_forced_height = dpi(25)
+
 -- {{ margins
 theme.margins = {}
 theme.margins.vertical = dpi(4)
