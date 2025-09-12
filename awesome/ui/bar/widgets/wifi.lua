@@ -30,7 +30,7 @@ local ssid_widget = wibox.widget {
     layout = wibox.layout.fixed.horizontal,
 }
 
-local wifi_popup = make_popup("WiFi Pop-up", wibox.widget.textbox("Yes"), ssid_widget)
+local wifi_popup = make_popup("WiFi Control", wibox.widget.textbox("Wifi ye"), ssid_widget)
 
 local function update_ssid_text()
     awful.spawn.easy_async_with_shell(ssid_command,
