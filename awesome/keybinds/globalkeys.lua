@@ -117,9 +117,9 @@ local globalkeys = gears.table.join(
     function() awful.spawn("/usr/libexec/xscreensaver/phosphor --scale 3 --program fortune") end,
         { description = "xscreensaver's phosphor", group = "fun" }),
 
-    -- volume control
-    awful.key( { config.modkey }, "Tab", function() awful.spawn("rofi -show window") end,
-        { description = "volume up by 5%", group = "misc" })
+    -- open calculator
+    awful.key( { config.modkey }, "c", function() awful.spawn("gnome-calculator") end,
+        { description = "calculator", group = "misc" })
 )
 
 

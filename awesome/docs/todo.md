@@ -26,3 +26,5 @@
 -   Intead of checking for my widget values (Like Wifi & Volume) **constently**,
     I think I should attach it to a signal. Like, for the WiFi, if the wifi switches.
     If it's switched off, or changed, or idk.
+-   When switching audio devices (say from HDMI to Bluetooth Earphones), the volume
+    value isn't updated.
