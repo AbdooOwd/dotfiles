@@ -26,14 +26,8 @@ require 'error_handling'
 
 -- {{{ Variable definitions
 
-local themes = {
-    "j-rice",
-}
-
-local selected_theme = themes[1]
-
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(string.format("~/.config/awesome/themes/%s/theme.lua", selected_theme))
+beautiful.init(string.format("~/.config/awesome/themes/%s/theme.lua", config.selected_theme))
 
 
 -- imports & all start here (MUST BE AFTER 'beautiful.init' !!!)

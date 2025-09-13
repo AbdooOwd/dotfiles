@@ -28,3 +28,4 @@
     If it's switched off, or changed, or idk.
 -   When switching audio devices (say from HDMI to Bluetooth Earphones), the volume
     value isn't updated.
+-   Make a "Windows Style Systray". A button, when clicked: displays tray apps.
