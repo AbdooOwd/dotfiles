@@ -29,3 +29,5 @@
 -   When switching audio devices (say from HDMI to Bluetooth Earphones), the volume
     value isn't updated.
 -   Make a "Windows Style Systray". A button, when clicked: displays tray apps.
+-   I made default slider dimensions the ones the volume slider use. Which means
+    for every slider I make, I'd be stuck with the volume-slider's "preset".

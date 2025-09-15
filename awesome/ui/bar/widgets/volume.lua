@@ -6,6 +6,7 @@ local n = require("naughty").notify
 
 local make_popup = require("ui.generic.popup")
 local watch = require("awful.widget.watch")
+local dpi = require("beautiful.xresources").apply_dpi
 
 
 local use_ALSA = false
@@ -13,6 +14,7 @@ local use_ALSA = false
 local volume_set_command -- always requires "%" after value
 local volume_get_command
 local mute_get_command
+local mute_set_command
 
 if use_ALSA then
     volume_set_command = "amixer set Master "
@@ -22,6 +24,7 @@ else
     volume_set_command = "pactl set-sink-volume @DEFAULT_SINK@ " -- space already hardcoded
     volume_get_command = "pactl get-sink-volume @DEFAULT_SINK@;"
     mute_get_command = "pactl get-sink-mute @DEFAULT_SINK@;"
+    mute_set_command = "pactl set-sink-mute @DEFAULT_SINK@ " -- 1: mute / 0: unmute
 end
 
 
@@ -55,7 +58,8 @@ volume_percentage.text = "Na%"
 local volume_icon = wibox.widget.textbox()
 volume_icon.font = beautiful.widget_icon_font
 
-local volume_slider_widget = wibox.widget {
+local volume_slider = wibox.widget {
+    id = "volume_slider",
     bar_height = 3,
     handle_width = 5,
 
@@ -68,6 +72,28 @@ local volume_slider_widget = wibox.widget {
     value = 50,
 
     widget = wibox.widget.slider,
+}
+
+local volume_popup_mute_button = wibox.widget {
+    text = volume_icon.text, -- copy the widget's icon,
+    font = beautiful.font_default_name .. " Mono Regular " .. dpi(42),
+    forced_height = dpi(20),
+    widget = wibox.widget.textbox
+}
+
+local volume_popup_widget = wibox.widget {
+    {
+        volume_popup_mute_button,
+        { -- so the mute icon's height affects the container--not the slider's height
+            volume_slider, 
+            widget = wibox.container.place
+        },
+        spacing = 10,
+        layout = wibox.layout.fixed.horizontal
+    },
+    valign = "center",
+    align = "center",
+    widget = wibox.container.place,
 }
 
 local volume_widget = wibox.widget {
@@ -85,7 +111,7 @@ local volume_widget = wibox.widget {
     layout = wibox.layout.fixed.horizontal
 }
 
-local volume_slider_popup = make_popup("Volume Control", volume_slider_widget, volume_widget)
+local volume_popup = make_popup("Volume Control", volume_popup_widget, volume_widget, "center")
 
 
 local function update_volume_text_widget()
@@ -97,28 +123,35 @@ local function update_volume_text_widget()
         else
             volume_icon.text = "󰝟" -- no volume icon
         end
+        volume_popup_mute_button.text = volume_icon.text
     end
 end
 
-local function update_volume_slider_widget()
-    if volume_value and volume_value ~= volume_slider_widget.value then
-        volume_slider_widget.value = volume_value
+local function update_volume_popup_widget()
+    if volume_value and volume_value ~= volume_popup_widget.value then
+        volume_popup_widget.value = volume_value
     end
 end
 
 
 volume_widget:buttons(
-    gears.table.join(
-        awful.button({}, 1, function()
-            awful.placement.next_to(volume_slider_popup,
-                {
-                    preferred_positions = { "bottom" },
-                    preferred_anchors = { "middle" },
-                }
-            )
-            volume_slider_popup.visible = not volume_slider_popup.visible
-        end)
-    )
+    awful.button({}, 1, function()
+        awful.placement.next_to(volume_popup,
+            {
+                preferred_positions = { "bottom" },
+                preferred_anchors = { "middle" },
+            }
+        )
+        volume_popup.visible = not volume_popup.visible
+    end)
+)
+
+volume_popup_mute_button:buttons(
+    awful.button({}, 1, function()
+        local mute_option
+        if is_muted then mute_option = "0" else mute_option = "1" end
+        awful.spawn(mute_set_command..mute_option, false)
+    end)
 )
 
 
@@ -135,8 +168,8 @@ local volume_debounce_timer = gears.timer {
 }
 
 
-volume_slider_widget:connect_signal("property::value", function(_)
-    new_volume = volume_slider_widget.value
+volume_slider:connect_signal("property::value", function(_)
+    new_volume = volume_slider.value
     volume_debounce_timer:again()
 end)
 
@@ -145,7 +178,7 @@ end)
 watch(volume_get_command..mute_get_command, 0.0001, function()
     update_volume_value()
     update_is_muted()
-    -- update_volume_slider_widget()
+    -- update_volume_popup_widget()
     update_volume_text_widget()
     collectgarbage("collect")
 end)

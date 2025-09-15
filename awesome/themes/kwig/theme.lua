@@ -12,26 +12,20 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local this_theme_path = "~/.config/awesome/themes/kwig/"
 
+-- quick vars
+local transparent = "#00000000"
+
 local theme = {}
 
-theme.font_default_name = "FantasqueSansM Nerd Font"
-theme.font_default_size = dpi(14)
-theme.font_default_weight = "Bold"
 
-theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular 21"
-theme.widget_icon_spacing = dpi(6) -- dpi spacing between widget value and its icon
-
-theme.font = string.format("%s %s %s", 
-    theme.font_default_name, theme.font_default_weight, theme.font_default_size)
-
-theme.wibar_opacity_hex = "D0"
+theme.wibar_opacity_hex = "D5"
 theme.default_opacity_hex = "D0"
 theme.default_bg_color = "#1A221C"
 
-theme.bg_normal     = theme.default_bg_color .. theme.default_opacity_hex
-theme.bg_focus      = "#212B24" .. theme.default_opacity_hex
-theme.bg_urgent     = "#ff0000" .. theme.default_opacity_hex
-theme.bg_minimize   = "#444444" .. theme.default_opacity_hex
+theme.bg_normal     = theme.default_bg_color --.. theme.default_opacity_hex
+theme.bg_focus      = "#212B24" --.. theme.default_opacity_hex
+theme.bg_urgent     = "#ff0000" --.. theme.default_opacity_hex
+theme.bg_minimize   = "#444444" --.. theme.default_opacity_hex
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#aaaaaa"
@@ -44,6 +38,22 @@ theme.border_width  = dpi(1)
 theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
+
+
+--{{ fonts
+
+theme.font_default_name = "FantasqueSansM Nerd Font"
+theme.font_default_weight = "Bold"
+theme.font_default_size = dpi(14)
+
+theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular 21"
+theme.widget_icon_spacing = dpi(6) -- dpi spacing between widget value and its icon
+
+theme.font = string.format("%s %s %s", 
+    theme.font_default_name, theme.font_default_weight, theme.font_default_size)
+
+-- }}
+
 
 -- There are other variable sets
 -- overriding the default one when
@@ -94,6 +104,8 @@ theme.taglist_font_size = dpi(15)
 theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.taglist_font_size)
 
 -- tasklist stuff
+theme.tasklist_bg_focus = "#212B24" .. theme.default_opacity_hex
+theme.tasklist_bg_normal = transparent
 -- theme.tasklist_disable_task_name = true
 -- theme.tasklist_shape = gears.shape.rounded_rect
 -- theme.tasklist_plain_task_name = true
@@ -102,8 +114,13 @@ theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.tagli
 theme.wibar_bg = "#1A221C" .. theme.wibar_opacity_hex
 
 -- slider
+-- TODO: Oops, that's reserved to the volume's slider
 theme.slider_forced_width = dpi(200)
 theme.slider_forced_height = dpi(25)
+
+-- titlebar
+theme.titlebar_bg = theme.default_bg_color .. theme.default_opacity_hex
+
 
 -- {{ margins
 theme.margins = {}
@@ -121,6 +138,7 @@ theme.margins.widgets.wifi.icon_bottom = dpi(1.9)
 
 theme.margins.widgets.volume = {}
 theme.margins.widgets.volume.icon_bottom = dpi(2)
+theme.margins.widgets.volume.popup_horizontal = dpi(0)
 
 theme.margins.widgets.systray_button = {}
 theme.margins.widgets.systray_button.icon_bottom = dpi(2)

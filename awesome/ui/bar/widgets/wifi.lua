@@ -55,18 +55,16 @@ end)
 
 
 ssid_widget:buttons(
-    gears.table.join(
-        awful.button({}, 1, function()
-            --[[awful.placement.next_to(wifi_popup,
-                {
-                    preferred_positions = { "bottom" },
-                    preferred_anchors = { "back" },
-                }
-            )
-            wifi_popup.visible = not wifi_popup.visible]]
-            awful.spawn("cinnamon-settings network", false)
-        end)
-    )
+    awful.button({}, 1, function()
+        --[[awful.placement.next_to(wifi_popup,
+            {
+                preferred_positions = { "bottom" },
+                preferred_anchors = { "back" },
+            }
+        )
+        wifi_popup.visible = not wifi_popup.visible]]
+        awful.spawn("cinnamon-settings network", false)
+    end)
 )
 
 return ssid_widget
