@@ -1,3 +1,4 @@
+local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
 local margins = beautiful.margins
@@ -51,6 +52,16 @@ local function get_thing_length(thing)
     end
     return count
 end
+
+local function get_keyboard_layout()
+    local el_layout
+    awful.spawn.easy_async_with_shell("setxkbmap -query | awk '/layout/{print $2}'", function(stdout)
+        el_layout = stdout
+        return stdout
+    end)
+
+    return el_layout
+end
 -- }}
 
 
@@ -61,4 +72,6 @@ return {
     hcenter = widget_horizontal_center,
 
     len = get_thing_length,
+
+    get_kb_layout = get_keyboard_layout
 }

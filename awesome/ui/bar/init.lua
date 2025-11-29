@@ -24,7 +24,10 @@ local len = utils.len
 
 
 -- Keyboard map indicator and switcher
+local kbdcfg = require("config").kbd_cfg
+awful.spawn("setxkbmap " .. kbdcfg.layouts[kbdcfg.current])
 local mykeyboardlayout = awful.widget.keyboardlayout()
+kbdcfg.widget = mykeyboardlayout
 
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock()
