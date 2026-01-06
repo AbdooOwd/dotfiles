@@ -207,7 +207,9 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 
-
+-- PolicyKit to handle password stuff
+-- (might be useless)
+awful.spawn("lxpolkit", false)
 
 -- EXPERIMENTATION & DEBUG???
 
