@@ -1,0 +1,7 @@
+# additional info
+# @TODO: should remove?
+export NVIM_CONFIG="lazyvim"
+
+# DEFAULT PROGRAMS 'N STUFF
+export EDITOR=$NVIM_CONFIG
+export TERMINAL=alacritty
