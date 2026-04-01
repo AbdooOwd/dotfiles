@@ -79,7 +79,7 @@ local right_widgets = function(screen)
     top = beautiful.margins.wibar.vertical,
     bottom = beautiful.margins.wibar.vertical,
     left = beautiful.margins.wibar.horizontal,
-    right = beautiful.margins.wibar.horizontal,
+    -- right = beautiful.margins.wibar.horizontal,
     widget = wibox.container.margin
   }
 end
