@@ -34,18 +34,18 @@ theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
 
-
+theme.hotkeys_modifiers_fg = "#707070"
 
 --{{ fonts
 
 theme.font_default_name = "FantasqueSansM Nerd Font"
 theme.font_default_weight = "Bold"
-theme.font_default_size = dpi(14)
+theme.font_default_size = 25
 
-theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular 21"
-theme.widget_icon_spacing = dpi(6) -- dpi spacing between widget value and its icon
+theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular " .. 45
+theme.widget_icon_spacing = 6 -- spacing between widget value and its icon
 
-theme.font = string.format("%s %s %s", 
+theme.font = string.format("%s %s %s",
     theme.font_default_name, theme.font_default_weight, theme.font_default_size)
 
 -- }}
@@ -65,7 +65,7 @@ theme.font = string.format("%s %s %s",
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(4)
+local taglist_square_size = 3
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
     taglist_square_size, theme.fg_normal
 )
@@ -92,13 +92,13 @@ theme.menu_width  = dpi(200)
 --theme.bg_widget = "#cc0000"
 
 -- systray stuff i guess
-theme.systray_icon_spacing = dpi(2)
-theme.systray_base_size = dpi(20)
+theme.systray_icon_spacing = dpi(5)
+theme.systray_base_size = 18
 
 -- taglist stuff
-theme.taglist_font_size = dpi(15)
+theme.taglist_font_size = 22
 theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.taglist_font_size)
-theme.taglist_spacing = dpi(2)
+theme.taglist_spacing = 3
 
 -- tasklist stuff
 theme.tasklist_spacing = dpi(5)
@@ -111,8 +111,8 @@ theme.wibar_bg = transparent
 
 -- slider
 -- TODO: Oops, that's reserved to the volume's slider
-theme.slider_forced_width = dpi(200)
-theme.slider_forced_height = dpi(25)
+theme.slider_forced_width = 150
+theme.slider_forced_height = 25
 
 -- titlebar
 theme.titlebar_bg = theme.default_bg_color
