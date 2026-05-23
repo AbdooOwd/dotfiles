@@ -6,6 +6,8 @@ local config = require("config")
 -- local utils = require("utils")
 local launcher_menu = require("ui.bar.launcher_module").menu
 
+local show_islamic_popup = require("ui.islam")
+
 local globalkeys = gears.table.join(
 	awful.key({ config.modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ config.modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
@@ -143,9 +145,14 @@ local globalkeys = gears.table.join(
 		awful.spawn(config.file_explorer)
 	end, { description = "opens file explorer", group = "misc" }),
 
+  -- open "task manager but linux"
   awful.key({ "Mod1", "Ctrl" }, "Delete", function()
 		awful.spawn(config.system_monitor)
-	end, { description = "opens system monitor", group = "misc" })
+	end, { description = "opens system monitor", group = "misc" }),
+
+  -- displays islamic popup with prayer times
+  awful.key( { config.modkey }, "v", function() show_islamic_popup() end,
+    { description = "displays islamic popup", group = "misc"})
 )
 
 -- Bind all key numbers to tags.
