@@ -32,26 +32,6 @@ end
 local volume_value = nil -- THE VOLUMEEEE
 local is_muted = nil
 
-local function update_volume_value()
-    awful.spawn.easy_async_with_shell(volume_get_command, function(stdout)
-        local volume = tonumber(stdout:match("Volume: front.- (%d+)%%")) or 0
-        if volume and volume % 1 == 0 then
-            volume_value = volume
-        else
-            volume_value = -1 --error!!!
-        end
-    end)
-end
-
-
-local function update_is_muted()
-    awful.spawn.easy_async_with_shell(mute_get_command, function(stdout)
-        is_muted = stdout:match("Mute: (%a+)") == "yes"
-    end)
-end
-
-
-
 
 local volume_percentage = wibox.widget.textbox()
 volume_percentage.text = "Na%"
@@ -133,6 +113,39 @@ local function update_volume_popup_widget()
     end
 end
 
+local function update_volume_value()
+    awful.spawn.easy_async_with_shell(volume_get_command, function(stdout)
+        local volume = tonumber(stdout:match("Volume: front.- (%d+)%%")) or 0
+        if volume and volume % 1 == 0 then
+            volume_value = volume
+        else
+            volume_value = -1 --error!!!
+        end
+    end)
+end
+
+
+local function update_is_muted()
+    awful.spawn.easy_async_with_shell(mute_get_command, function(stdout)
+        is_muted = stdout:match("Mute: (%a+)") == "yes"
+    end)
+end
+
+local function update_volume()
+  awful.spawn.easy_async_with_shell(volume_get_command .. mute_get_command, function(stdout)
+    local volume = tonumber(stdout:match("Volume: front.- (%d+)%%")) or 0
+    if volume and volume % 1 == 0 then
+      volume_value = volume
+    else
+      volume_value = -1 -- error!!!
+    end
+
+    is_muted = stdout:match("Mute: (%a+)") == "yes"
+
+    update_volume_text_widget()
+  end)
+end
+
 
 volume_widget:buttons(
     awful.button({}, 1, function()
@@ -155,31 +168,25 @@ volume_popup_mute_button:buttons(
 )
 
 
-local new_volume = nil
-
 local volume_debounce_timer = gears.timer {
-    timeout = 0.01,
-    single_shot = true,
-    callback = function()
-        if new_volume then
-            awful.spawn(volume_set_command .. new_volume .. "%", false)
-        end
-    end
+  timeout = 0.01,
+  single_shot = true,
+  callback = function()
+    awful.spawn(volume_set_command .. volume_value .. "%", false)
+    update_volume_text_widget()
+  end
 }
 
 
 volume_slider:connect_signal("property::value", function(_)
-    new_volume = volume_slider.value
-    volume_debounce_timer:again()
+  volume_value = volume_slider.value
+  volume_debounce_timer:again()
 end)
 
 
 -- check for volume & mute updates
-watch(volume_get_command..mute_get_command, 0.0001, function()
-    update_volume_value()
-    update_is_muted()
-    -- update_volume_popup_widget()
-    update_volume_text_widget()
+watch(volume_get_command..mute_get_command, 2, function()
+    update_volume()
     collectgarbage("collect")
 end)
 
