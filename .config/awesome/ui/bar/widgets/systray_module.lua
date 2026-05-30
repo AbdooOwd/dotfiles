@@ -16,13 +16,8 @@ local systray_toggle_button = wibox.widget {
     widget = wibox.container.margin
 }
 
-local el_systray = wibox.widget {
-    {
-        id = "el_systray",
-        widget = wibox.widget.systray
-    },
-    widget = wibox.container.background
-}
+local el_systray = wibox.widget.systray()
+el_systray.base_size = beautiful.systray_base_size
 
 local systray_popup = make_popup("Systray", el_systray, systray_toggle_button)
 
@@ -49,7 +44,7 @@ systray_toggle_button:buttons(
 return {
     -- vars
     systray = el_systray,
-    systray_button = systray_toggle_button,
+    systray_button = systray_toggle_button, -- unused for now
 
     -- funcs
     set_screen_systray = set_screen_systray,
