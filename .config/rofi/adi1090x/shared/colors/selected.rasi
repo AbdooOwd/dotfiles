@@ -1,0 +1,13 @@
+/**
+ *
+ *  This file's purpose is to act like a... uh, "welcomer"...
+ *  or rather a "handle"...
+ *  Essentially; the config will grab this file's colors,
+ *  so it's easier to switch colors by just changing
+ *  what color palette is being imported in this file.
+ *
+ *                  - AbdooOwd
+ *
+ **/
+
+@import "catppuccin.rasi"
