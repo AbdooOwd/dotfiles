@@ -1,6 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local function show_islamic_popup()
   local popup
@@ -11,10 +12,13 @@ local function show_islamic_popup()
       widget = {
         {
           text = stdout,
-          font = beautiful.font_default_name .. " Regular " .. " 20",
+          font = beautiful.font_default_name .. " Regular " .. beautiful.islam.font_size,
           widget = wibox.widget.textbox
         },
-        margin = 40,
+        top = beautiful.margins.islam_popup,
+        bottom = beautiful.margins.islam_popup,
+        left = beautiful.margins.islam_popup,
+        right = beautiful.margins.islam_popup,
         widget = wibox.container.margin
       },
       placement = awful.placement.centered,
