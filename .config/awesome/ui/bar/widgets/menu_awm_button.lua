@@ -6,7 +6,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 local menu_button = wibox.widget {
   text = " 󰍜  ",
-  font = beautiful.font_default_name .. " Bold " .. tostring(dpi(16)),
+  font = beautiful.font_default_prefix  .. beautiful.menu_font_size,
   widget = wibox.widget.textbox
 }
 

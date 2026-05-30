@@ -3,6 +3,7 @@
 --------------------------
 
 local gears = require("gears")
+local naughty = require("naughty")
 
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
@@ -17,22 +18,22 @@ local transparent = "#00000000"
 
 local theme = {}
 
-theme.bg_normal     = "#121212"
-theme.bg_focus      = "#212121"
-theme.bg_urgent     = "#ff0000"
+theme.bg_normal     = "#1e1e2e"
+theme.bg_focus      = "#181825"
+theme.bg_urgent     = "#6c7086"
 theme.bg_minimize   = "#00000000" --transparent when minimized
 theme.bg_systray    = nil
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
+theme.fg_normal     = "#a6adc8"
+theme.fg_focus      = "#cdd6f4"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(0)
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+theme.border_width  = 1
+theme.border_normal = theme.bg_normal
+theme.border_focus  = theme.bg_focus
+theme.border_marked = theme.bg_focus
 
 theme.hotkeys_modifiers_fg = "#707070"
 
@@ -40,13 +41,22 @@ theme.hotkeys_modifiers_fg = "#707070"
 
 theme.font_default_name = "FantasqueSansM Nerd Font"
 theme.font_default_weight = "Bold"
-theme.font_default_size = 25
+theme.font_default_size = dpi(25)
 
-theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular " .. 45
+theme.font_default_prefix = theme.font_default_name .. " " .. theme.font_default_weight .. " "
+
+theme.widget_icon_font = "FantasqueSansM Nerd Font Mono Regular " .. dpi(45)
 theme.widget_icon_spacing = 6 -- spacing between widget value and its icon
 
 theme.font = string.format("%s %s %s",
     theme.font_default_name, theme.font_default_weight, theme.font_default_size)
+
+naughty.config.defaults.font = theme.font_default_prefix .. dpi(25)
+
+theme.hotkeys_font = theme.font_default_prefix .. dpi(23)
+theme.hotkeys_description_font = theme.font_default_prefix .. dpi(18)
+
+theme.menu_font_size = dpi(28)
 
 -- }}
 
@@ -64,8 +74,13 @@ theme.font = string.format("%s %s %s",
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 
+-- taglist stuff
+theme.taglist_font_size = dpi(25)
+theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.taglist_font_size)
+theme.taglist_spacing = dpi(3)
+
 -- Generate taglist squares:
-local taglist_square_size = 3
+local taglist_square_size = 0
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
     taglist_square_size, theme.fg_normal
 )
@@ -83,8 +98,8 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path.."default/submenu.png"
-theme.menu_height = dpi(20)
-theme.menu_width  = dpi(200)
+theme.menu_height = dpi(25)
+theme.menu_width  = dpi(180)
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -92,56 +107,66 @@ theme.menu_width  = dpi(200)
 --theme.bg_widget = "#cc0000"
 
 -- systray stuff i guess
-theme.systray_icon_spacing = dpi(5)
+theme.systray_icon_spacing = 3
 theme.systray_base_size = 18
 
--- taglist stuff
-theme.taglist_font_size = 22
-theme.taglist_font = theme.font_default_name .. " Bold " .. tostring(theme.taglist_font_size)
-theme.taglist_spacing = 3
 
 -- tasklist stuff
-theme.tasklist_spacing = dpi(5)
+theme.tasklist_spacing = dpi(3)
 -- theme.tasklist_disable_task_name = true
 -- theme.tasklist_shape = gears.shape.rounded_rect
 -- theme.tasklist_plain_task_name = true
 
 -- wibar stuff
-theme.wibar_bg = transparent
+theme.wibar_height = dpi(38)
+-- theme.wibar_bg = transparent
+
+-- notifications (naughty)
+theme.notification_width = dpi(300)
+theme.notification_height = dpi(80)
+theme.notification_max_width = dpi(300)
+theme.notification_max_height = dpi(200)
+theme.notification_icon_size = dpi(30)
 
 -- slider
 -- TODO: Oops, that's reserved to the volume's slider
-theme.slider_forced_width = 150
-theme.slider_forced_height = 25
+theme.slider_forced_width = dpi(150)
+theme.slider_forced_height = dpi(25)
 
 -- titlebar
 theme.titlebar_bg = theme.default_bg_color
 
+-- islam !
+theme.islam = {}
+theme.islam.font_size = dpi(33)
 
 -- {{ margins
 theme.margins = {}
-theme.margins.vertical = dpi(4)
-theme.margins.horizontal = dpi(4)
+theme.margins.universal = dpi(4)
+theme.margins.vertical = dpi(3)
+theme.margins.horizontal = dpi(3)
 theme.margins.widget_icon_left = dpi(6)
 
-theme.margins.tagbutton_horizontal = dpi(5)
+theme.margins.tagbutton_horizontal = dpi(4)
 
 -- widget specific margins
 theme.margins.widgets = {}
 
 theme.margins.widgets.wifi = {}
-theme.margins.widgets.wifi.icon_bottom = dpi(1.9)
+theme.margins.widgets.wifi.icon_bottom = dpi(1)
 
 theme.margins.widgets.volume = {}
-theme.margins.widgets.volume.icon_bottom = dpi(2)
+theme.margins.widgets.volume.icon_bottom = dpi(1.3)
 theme.margins.widgets.volume.popup_horizontal = dpi(0)
 
 theme.margins.widgets.systray_button = {}
 theme.margins.widgets.systray_button.icon_bottom = dpi(2)
 
 theme.margins.wibar = {}
-theme.margins.wibar.horizontal = dpi(5)
-theme.margins.wibar.vertical = dpi(4)
+theme.margins.wibar.horizontal = dpi(3)
+theme.margins.wibar.vertical = dpi(3)
+
+theme.margins.islam_popup = dpi(16)
 -- }}
 
 -- some more (custom) vars
