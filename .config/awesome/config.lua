@@ -17,14 +17,6 @@ config.kbd_cfg.layouts = {
 config.kbd_cfg.current = 1 -- default is 'fr'
 config.kbd_cfg.widget = {}
 
--- theming
-config.themes = {
-    "j-rice",
-    "kwig"
-}
-
-config.selected_theme = config.themes[2]
-
 -- some programs
 config.system_monitor = "gnome-system-monitor"
 

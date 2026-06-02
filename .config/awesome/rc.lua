@@ -27,7 +27,7 @@ require 'error_handling'
 -- {{{ Variable definitions
 
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(string.format("~/.config/awesome/themes/%s/theme.lua", config.selected_theme))
+beautiful.init(awful.util.getdir("config") .. "/theme/theme.lua")
 
 
 -- imports & all start here (MUST BE AFTER 'beautiful.init' !!!)
