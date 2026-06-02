@@ -19,7 +19,6 @@ local ssid_widget = wibox.widget {
     {
         wifi_icon,
         left = beautiful.margins.widget_icon_left,
-        bottom = beautiful.margins.widgets.wifi.icon_bottom,
         widget = wibox.container.margin,
     },
     {
