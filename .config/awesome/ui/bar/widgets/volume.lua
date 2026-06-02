@@ -8,9 +8,10 @@ local make_popup = require("ui.generic.popup")
 local watch = require("awful.widget.watch")
 local dpi = require("beautiful.xresources").apply_dpi
 
-
+-- i forgor what dis is for ¯\(·_·)_/¯
 local use_ALSA = false
 
+-- the commands to use based on the audio thingie used
 local volume_set_command -- always requires "%" after value
 local volume_get_command
 local mute_get_command
@@ -28,18 +29,15 @@ else
 end
 
 
-
 local volume_value = nil -- THE VOLUMEEEE
 local is_muted = nil
 
-
 local volume_percentage = wibox.widget.textbox()
-volume_percentage.text = "Na%"
+volume_percentage.text = "Na%" -- default widget's text
 local volume_icon = wibox.widget.textbox()
 volume_icon.font = beautiful.widget_icon_font
 
 local volume_slider = wibox.widget {
-    id = "volume_slider",
     bar_height = 3,
     handle_width = 5,
 
@@ -56,7 +54,7 @@ local volume_slider = wibox.widget {
 
 local volume_popup_mute_button = wibox.widget {
     text = volume_icon.text, -- copy the widget's icon,
-    font = beautiful.font_default_name .. " Mono Regular " .. dpi(42),
+    font = beautiful.font_default_name .. " Mono Regular " .. beautiful.volume_popup_icon_size,
     forced_height = dpi(20),
     widget = wibox.widget.textbox
 }
@@ -80,7 +78,6 @@ local volume_widget = wibox.widget {
     {
         volume_icon,
         left = beautiful.margins.widget_icon_left,
-        bottom = beautiful.margins.widgets.volume.icon_bottom,
         widget = wibox.container.margin
     },
     {
@@ -93,7 +90,7 @@ local volume_widget = wibox.widget {
 
 local volume_popup = make_popup("Volume Control", volume_popup_widget, volume_widget, "center")
 
-
+-- Only updates the widget's content & values with the last read values (volume + mute)
 local function update_volume_text_widget()
     if volume_value then
         volume_percentage.text = tostring(volume_value).."%"
@@ -131,6 +128,7 @@ local function update_is_muted()
     end)
 end
 
+-- Gets new system volume & muted then automatically updates the widgets content & values
 local function update_volume()
   awful.spawn.easy_async_with_shell(volume_get_command .. mute_get_command, function(stdout)
     local volume = tonumber(stdout:match("Volume: front.- (%d+)%%")) or 0
@@ -160,11 +158,12 @@ volume_widget:buttons(
 )
 
 volume_popup_mute_button:buttons(
-    awful.button({}, 1, function()
-        local mute_option
-        if is_muted then mute_option = "0" else mute_option = "1" end
-        awful.spawn(mute_set_command..mute_option, false)
-    end)
+  awful.button({}, 1, function()
+    local mute_option
+    if is_muted then mute_option = "0" else mute_option = "1" end
+    awful.spawn(mute_set_command..mute_option, false)
+    update_volume()
+  end)
 )
 
 
