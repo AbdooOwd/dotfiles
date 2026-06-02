@@ -152,7 +152,12 @@ local globalkeys = gears.table.join(
 
   -- displays islamic popup with prayer times
   awful.key( { config.modkey }, "v", function() show_islamic_popup() end,
-    { description = "displays islamic popup", group = "misc"})
+    { description = "displays islamic popup", group = "misc"}),
+
+  -- DEBUG KEYBINDS
+  awful.key( { config.modkey }, "ù", function()
+    require("naughty").notify({ title = "Naughty Notification", text = "This SHOULD be a naughty notification.", icon = "/home/abdooowd/Pictures/img/pfp.png" })
+  end, { description = "debug test", group = "debug"})
 )
 
 -- Bind all key numbers to tags.
